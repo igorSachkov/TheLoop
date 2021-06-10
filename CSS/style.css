@@ -105,7 +105,7 @@ header .logo img {
 }
 
 .representation-block__image {
-  height: 377px;
+  width: 100%;
   position: absolute;
   top: -30px;
 }
@@ -369,14 +369,18 @@ header .logo img {
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .new-models {
-  width: 255px;
+  width: 22%;
   height: 350px;
   background: no-repeat url(../images/backgroundCross.png);
-  padding: 4px;
+  padding: 6px;
   text-align: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .new-models img {
@@ -419,7 +423,7 @@ header .logo img {
           align-items: center;
 }
 
-.second-footer .second-footer__header h2 {
+.second-footer__header h2 {
   font-weight: bold;
   font-size: 30px;
   line-height: 37px;
@@ -507,4 +511,52 @@ footer .basic-footer .wrapper .logo-box .company-info {
 
 footer .basic-footer .wrapper .logo-box img {
   width: 100%;
+}
+
+@media (max-width: 1130px) {
+  .wrapper {
+    padding: 0px 20px;
+  }
+  header .logo {
+    margin: 0px;
+  }
+  header .basket {
+    margin-left: 10px;
+  }
+  .nav__item:not(:first-child) {
+    margin-left: 15px;
+  }
+  .flex-showcase {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .new-models {
+    width: 48%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    background-position: center;
+  }
+  .second-footer {
+    margin: 510px 0px 150px 0px;
+  }
+  .second-footer__header {
+    text-align: center;
+  }
+  .representation-block__seasonal-offer_sale-heading {
+    text-align: center;
+  }
+  .representation-block__seasonal-offer_season-heading {
+    text-align: center;
+  }
+  .representation-block__info .btn-see-all-models {
+    margin: 0 auto;
+  }
+  footer .basic-footer {
+    margin-top: 440px;
+  }
+  footer .basic-footer .wrapper .logo-box {
+    margin-right: 6%;
+  }
 }

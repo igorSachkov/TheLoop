@@ -82,7 +82,7 @@ header {
         right: 0;
     }
     &__image {
-        height: 377px;
+        width: 100%;
         position: absolute;
         top: -30px;
     }
@@ -287,13 +287,15 @@ header {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap;
 }
 .new-models {
-    width: 255px;
+    width: 22%;
     height: 350px;
     background: no-repeat url(../images/backgroundCross.png);
-    padding: 4px;
+    padding: 6px;
     text-align: center;
+    flex-wrap: wrap;
     img {
         width: 205px;
         margin-top: 20px;
@@ -326,7 +328,7 @@ header {
         justify-content: space-between;
         align-items: center;
     }
-    .second-footer__header {
+    &__header {
         h2 {
             font-weight: bold;
             font-size: 30px;
@@ -413,5 +415,60 @@ footer {
 
 }
 
+///adaptive///// 
 
 
+@media (max-width: 1130px) {
+    .wrapper {
+        padding: 0px 20px;
+    }
+    header {
+        .logo {
+            margin: 0px;
+        }
+        .basket {
+            margin-left: min($numbers: 10px);
+        }
+    }
+    .nav {
+        
+        &__item:not(:first-child) {
+            margin-left: min($numbers: 15px);
+        }
+    }
+    .flex-showcase {
+        justify-content: center;
+    }
+    .new-models {
+        width: 48%;
+        justify-content: center;
+        background-position: center;
+    }
+    .second-footer {
+        margin: 510px 0px 150px 0px;
+        &__header {
+            text-align: center;
+        }
+    }
+    .representation-block__seasonal-offer_sale-heading {
+        text-align: center;
+    }
+    .representation-block__seasonal-offer_season-heading {
+        text-align: center;
+    }
+    .representation-block__info {
+        .btn-see-all-models {
+            margin: 0 auto;
+        }
+    }
+    footer .basic-footer {
+      margin-top: 440px;
+    }
+    footer .basic-footer .wrapper .logo-box {
+        margin-right: 6%;
+    }
+}
+@media (max-width: 860px) {
+
+}
+/////
