@@ -560,3 +560,19 @@ footer .basic-footer .wrapper .logo-box img {
     margin-right: 6%;
   }
 }
+
+@media (max-width: 860px) {
+  .representation-block {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding: 1% 0px 13% 0px;
+  }
+  .representation-block__info {
+    width: 100%;
+  }
+  .products-grid {
+    display: none;
+  }
+}

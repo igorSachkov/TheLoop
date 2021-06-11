@@ -469,6 +469,15 @@ footer {
     }
 }
 @media (max-width: 860px) {
-
+    .representation-block {
+        flex-direction: column;
+        padding: 1% 0px 13% 0px;
+        &__info {
+            width: 100%;
+        }
+    }
+    .products-grid {
+        display: none;
+    }
 }
 /////
