@@ -115,25 +115,24 @@ header {
         margin-top: 10px;
     }
 }
-.main-box {
-    &__slider {
-        width: 100%;
-        margin: 40px 0px 70px 0px;
-        ul {
-            display: flex;
-            list-style-type: none;
-            justify-content: center;
-            align-items: center;
-            li {
-                margin: 7px;
-                cursor: pointer;
-                width: 40px;
-                height: 7px;
-            }
+.slider {
+    width: 100%;
+    margin: 40px 0px 70px 0px;
+    ul {
+        display: flex;
+        list-style-type: none;
+        justify-content: center;
+        align-items: center;
+        li {
+            margin: 7px;
+            cursor: pointer;
+            width: 40px;
+            height: 7px;
         }
-
     }
+
 }
+
 ////buttons//////
 .btn-see-all-models {
     background-color: $colorAccent;
@@ -266,6 +265,9 @@ header {
 .advertising {
     height: 650px;
     margin-top: 145px;
+    &__slider {
+        display: none;
+    }
     &__header {
         text-align: center;
         margin-bottom: 100px;
@@ -479,5 +481,51 @@ footer {
     .products-grid {
         display: none;
     }
+    header .nav {
+        display: none;
+    }
+    .goods-category {
+        display: none;
+    }
 }
-/////
+
+@media (max-width: 660px) {
+    .flex-showcase {
+        .new-models {
+            width: 100%;
+        }
+        .new-models:not(:first-child) {
+            display: none;
+        }
+    }
+    .advertising {
+        &__slider {
+            display: block;
+            margin: 30px 0px 30px 0px;
+        }
+        &__footer {
+            margin-top: 40px;
+        }
+    }   
+    .second-footer {
+        margin: 100px 0px;
+    }
+    footer {
+        .basic-footer {
+            margin-top: 100px;
+            .wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                .logo-box {
+                    width: 40%;
+                    height: 100%;
+                }
+                .footer-info {
+                    width: 40%;
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}
+//////hamburger-menu////////
