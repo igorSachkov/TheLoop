@@ -9,6 +9,10 @@
   margin: 0 auto;
 }
 
+.hamburger-menu {
+  display: none;
+}
+
 .main {
   background-color: #F9F6F1;
 }
@@ -585,6 +589,9 @@ footer .basic-footer .wrapper .logo-box img {
   .goods-category {
     display: none;
   }
+  .hamburger-menu {
+    display: block;
+  }
 }
 
 @media (max-width: 660px) {
@@ -622,4 +629,96 @@ footer .basic-footer .wrapper .logo-box img {
     width: 40%;
     margin-top: 20px;
   }
+}
+
+.hamburger-btn__icon {
+  font-weight: bold;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #D7B399;
+  position: absolute;
+  z-index: 11;
+  position: relative;
+}
+
+.hamburger-btn__icon .line {
+  position: absolute;
+  display: block;
+  width: 30px;
+  background-color: #212121;
+  height: 2px;
+  margin-top: calc(50% - 1px);
+  margin-left: calc(50% - 15px);
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.hamburger-btn__icon .line-first {
+  -webkit-transform: translate(0px, -7px);
+          transform: translate(0px, -7px);
+}
+
+.hamburger-btn__icon .line-third {
+  -webkit-transform: translate(0px, 7px);
+          transform: translate(0px, 7px);
+}
+
+.hamburger-btn__icon_activated {
+  font-weight: bold;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #D7B399;
+  position: absolute;
+  z-index: 11;
+  position: relative;
+}
+
+.hamburger-btn__icon_activated .line {
+  position: absolute;
+  display: block;
+  width: 30px;
+  background-color: #212121;
+  height: 2px;
+  margin-top: calc(50% - 1px);
+  margin-left: calc(50% - 15px);
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.hamburger-btn__icon_activated .line-first {
+  -webkit-transform: translate(0px, -7px);
+          transform: translate(0px, -7px);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.hamburger-btn__icon_activated .line-second {
+  opacity: 0;
+}
+
+.hamburger-btn__icon_activated .line-third {
+  -webkit-transform: translate(0px, 7px);
+          transform: translate(0px, 7px);
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.menu-box {
+  background-color: wheat;
+  width: 300px;
+  line-height: 40px;
+  position: absolute;
+  z-index: 10;
+  padding: 100px 0px 20px 40px;
+  left: 0px;
+  top: -400px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.menu-box .menu__item {
+  list-style-type: none;
+  text-transform: uppercase;
 }

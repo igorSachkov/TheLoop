@@ -13,6 +13,9 @@ $colorImporant: #D84033;
     max-width: 1110px;
     margin: 0 auto;
 }
+.hamburger-menu {
+    display: none;
+}
 .main {
     background-color: $colorMain;
 }
@@ -487,6 +490,9 @@ footer {
     .goods-category {
         display: none;
     }
+    .hamburger-menu {
+        display: block;
+    }
 }
 
 @media (max-width: 660px) {
@@ -529,3 +535,79 @@ footer {
     }
 }
 //////hamburger-menu////////
+
+.hamburger-btn__icon {
+    font-weight: bold;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-color: $colorAccent;
+    position: absolute;
+    z-index: 11;
+    position: relative;
+    .line {
+        position: absolute;
+        display: block;
+        width: 30px;
+        background-color: $colorSecond;
+        height: 2px;
+        margin-top: calc(50% - 1px);
+        margin-left: calc(50% - 15px);
+        transition: 1s;
+    }
+    .line-first {
+        transform: translate(0px, -7px);
+    }
+    .line-third {
+        transform: translate(0px, 7px);
+    }
+    &_activated {
+        font-weight: bold;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        background-color: $colorAccent;
+        position: absolute;
+        z-index: 11;
+        position: relative;
+        
+        .line {
+            position: absolute;
+            display: block;
+            width: 30px;
+            background-color: $colorSecond;
+            height: 2px;
+            margin-top: calc(50% - 1px);
+            margin-left: calc(50% - 15px);
+            transition: 1s;
+        }
+        .line-first {
+            transform: translate(0px, -7px);
+            transform: rotate(45deg);
+        }
+        .line-second {
+            opacity: 0;
+        }
+        .line-third {
+            transform: translate(0px, 7px);
+            transform: rotate(-45deg);
+
+        }
+    }
+}
+
+.menu-box {
+    background-color: wheat;
+    width: 300px;
+    line-height: 40px;
+    position: absolute;
+    z-index: 10;
+    padding: 100px 0px 20px 40px;
+    left: 0px;
+    top: -400px;
+    transition: 1s;
+    .menu__item {
+        list-style-type: none;
+        text-transform: uppercase;
+    }
+}
