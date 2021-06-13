@@ -41,23 +41,42 @@ let nikeGreenShoe = new Goods({name: "Green Nike", oldPrice: "8 999 ₽", salePr
 let nikePurpleShoe = new Goods({name: "Purple Nike", oldPrice: "10 100 ₽", salePrice: "2 100 ₽", directory: "images/running_shoes2.png"});
 let nikeBlackShoe = new Goods({name: "Black Nike", oldPrice: "17 200 ₽", salePrice: "3 400 ₽", directory: "images/running_shoes3.png"});
 representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe)
-function sliderGetNammed(arr) {
-    for(let i = 0; i < arr.length; i++){
-        let li = document.createElement('li');
-        let img = document.createElement("img");
-        firstSlider.appendChild(li);
-        li.className = `el${i}`;
-        li.appendChild(img);
-        img.src = `images/bar_passive.png`;
+
+
+
+
+
+///////Слайдер глвное меню//////
+
+
+let mainRepresentation = {
+    position: -1,
+    // representation: function(array) {
+    //     let timerId = setInterval(this.next(array), 5000);
+    // },
+    sliderGetNammed: function(arr) {
+        for(let i = 0; i < arr.length; i++){
+            let li = document.createElement('li');
+            let img = document.createElement("img");
+            firstSlider.appendChild(li);
+            li.className = `el${i}`;
+            li.appendChild(img);
+            img.src = `images/bar_passive.png`;
+        }
+    },
+    next: function(arr) {
+        this.position++;
+        representationOldPrice.innerHTML = arr[this.position].oldPrice
+        representationSalePrice.innerHTML = arr[this.position].salePrice
+        representationImage.src = arr[this.position].directory
+        firstSlider.children[this.position].children[0].src = "images/bar_active.png"
+        
     }
-    representationOldPrice.innerHTML = arr[0].oldPrice
-    representationSalePrice.innerHTML = arr[0].salePrice
-    representationImage.src = arr[0].directory
-    firstSlider.children[0].children[0].src = "images/bar_active.png"
+
 }
-
-sliderGetNammed(representationArray)
-
+mainRepresentation.sliderGetNammed(representationArray);
+mainRepresentation.next(representationArray);
+// setInterval('alert("прошла секунда")', 5000)
 
 
 
