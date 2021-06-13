@@ -641,3 +641,29 @@ footer {
         text-transform: uppercase;
     }
 }
+
+
+///////test box///////// не забыть удалить!!!
+.test-wrapper {
+    width: 500px;
+    margin: 0 auto;
+}
+.slider-container {
+    overflow: hidden;
+    background-color: pink;
+}
+.slider-track {
+    display: flex;
+    background-color: yellow;
+    transition: .5s;
+}
+.slider-item {
+    height: 400px;
+    min-width: 100%;
+    img {
+        width: 100%;
+    }
+}
+.slider-buttons {
+    text-align: center;
+}

@@ -759,3 +759,35 @@ footer .basic-footer .wrapper .logo-box img {
   list-style-type: none;
   text-transform: uppercase;
 }
+
+.test-wrapper {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.slider-container {
+  overflow: hidden;
+  background-color: pink;
+}
+
+.slider-track {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: yellow;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.slider-item {
+  height: 400px;
+  min-width: 100%;
+}
+
+.slider-item img {
+  width: 100%;
+}
+
+.slider-buttons {
+  text-align: center;
+}

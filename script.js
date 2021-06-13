@@ -57,3 +57,46 @@ function sliderGetNammed(arr) {
 }
 
 sliderGetNammed(representationArray)
+
+
+
+
+///////test 
+
+let position = 0;
+const slidesToShow = 1; ///сколько элементов нам показывать
+const slidesToScroll = 1; ////сколько элементов нам показывать
+const container = document.querySelector(".slider-container")
+const track = document.querySelector(".slider-track")
+const item = document.querySelector(".slider-item")
+const itemWidth = container.offsetWidth / slidesToShow;
+const btnPrev = document.querySelector(".prev")
+const btnNext = document.querySelector(".next")
+
+btnPrev.addEventListener("click", back)
+btnNext.addEventListener("click", next)
+function next() {
+    track.style.transform += `translate(-${itemWidth}px)`;
+    position += 1;
+    if(position >= representationArray.length) {
+        position = 0;
+        track.style.transform = ``;
+    }
+}
+function back() {
+    track.style.transform += `translate(${itemWidth}px)`;
+    position -= 1;
+    if(position < 0) {
+        position = representationArray.length - 1;
+        track.style.transform = `translate(-${itemWidth * (representationArray.length - 1)}px)`;
+    }
+}
+
+function representation() {
+    
+  
+    let timerId = setInterval(next, 5000);
+  }
+  
+  // использование:
+  representation();
