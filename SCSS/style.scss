@@ -550,7 +550,14 @@ footer {
 @media (max-width: 480px) {
     .representation-block__price {
         bottom: 0px;
-        right: 27vw;
+        right: unset;
+        width: 100%;
+        &_old {
+            text-align: center;
+        }
+        &_new {
+            text-align: center;
+        }
     }
     .hamburger-menu {
         margin-right: 10px;

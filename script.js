@@ -17,3 +17,5 @@ window.addEventListener("resize", ()=> {
     }
 })
 hamburgerButton.addEventListener("click", hamburgerHandler)
+
+//////создаем классы/////
