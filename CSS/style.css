@@ -751,6 +751,8 @@ footer .basic-footer .wrapper .logo-box img {
   top: -400px;
   -webkit-transition: 1s;
   transition: 1s;
+  -webkit-box-shadow: 4px 3px 2px rgba(0, 0, 0, 0.5);
+          box-shadow: 4px 3px 2px rgba(0, 0, 0, 0.5);
 }
 
 .menu-box .menu__item {
