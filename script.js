@@ -51,9 +51,6 @@ representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackSh
 
 let mainRepresentation = {
     position: -1,
-    // representation: function(array) {
-    //     let timerId = setInterval(this.next(array), 5000);
-    // },
     sliderGetNammed: function(arr) {
         for(let i = 0; i < arr.length; i++){
             let li = document.createElement('li');
@@ -65,6 +62,9 @@ let mainRepresentation = {
         }
     },
     next: function(arr) {
+        if(this.position >= 3) {
+            this.position = -1;
+        }
         this.position++;
         representationOldPrice.innerHTML = arr[this.position].oldPrice
         representationSalePrice.innerHTML = arr[this.position].salePrice
@@ -76,6 +76,12 @@ let mainRepresentation = {
 }
 mainRepresentation.sliderGetNammed(representationArray);
 mainRepresentation.next(representationArray);
+function timerSlider() {
+    setInterval(function() {
+        mainRepresentation.next(representationArray);
+    }, 5000)
+}
+timerSlider()
 // setInterval('alert("прошла секунда")', 5000)
 
 
