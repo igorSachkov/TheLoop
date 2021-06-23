@@ -27,6 +27,7 @@ hamburgerButton.addEventListener("click", hamburgerHandler)
 
 //////главная витрина с обувью/////
 const representationArray = new Array;
+const dressArray = new Array;
 
 class Goods {
     constructor(options) {
@@ -40,14 +41,17 @@ let nikeRedShoe = new Goods({name: "Red Nike",oldPrice: "9 900 ₽",salePrice: "
 let nikeGreenShoe = new Goods({name: "Green Nike", oldPrice: "8 999 ₽", salePrice: "1 750 ₽", directory: "images/running_shoes1.png"});
 let nikePurpleShoe = new Goods({name: "Purple Nike", oldPrice: "10 100 ₽", salePrice: "2 100 ₽", directory: "images/running_shoes2.png"});
 let nikeBlackShoe = new Goods({name: "Black Nike", oldPrice: "17 200 ₽", salePrice: "3 400 ₽", directory: "images/running_shoes3.png"});
-representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe)
+representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe);
 
+//////витрина с платьями///////////
 
-
-
+let coctailDress = new Goods({name: "Коктейльное платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png"});
+let pinkDress = new Goods({name: "Розовое платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png"});
+let superDress = new Goods({name: "Богатое платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png"});
+let ballDress = new Goods({name: "Бальное платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png"});
+dressArray.push(coctailDress, pinkDress, superDress, ballDress);
 
 ///////Слайдер глвное меню//////
-
 
 let mainRepresentation = {
     position: -1,
@@ -66,23 +70,58 @@ let mainRepresentation = {
             this.position = -1;
         }
         this.position++;
+        let prevPosition = this.position - 1;
+        if(prevPosition < 0) {
+            prevPosition = arr.length - 1;
+        }
         representationOldPrice.innerHTML = arr[this.position].oldPrice
         representationSalePrice.innerHTML = arr[this.position].salePrice
         representationImage.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
-        
+        firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
     }
-
 }
 mainRepresentation.sliderGetNammed(representationArray);
 mainRepresentation.next(representationArray);
 function timerSlider() {
     setInterval(function() {
         mainRepresentation.next(representationArray);
-    }, 5000)
+    }, 4000)
 }
 timerSlider()
+
 // setInterval('alert("прошла секунда")', 5000)
+
+////////////слайдер витрина с платьями//////////////
+
+let dressRepresentation = {
+    position: -1,
+    sliderGetNammed: function(arr) {
+        for(let i = 0; i < arr.length; i++){
+            let li = document.createElement('li');
+            let img = document.createElement("img");
+            firstSlider.appendChild(li);
+            li.className = `el${i}`;
+            li.appendChild(img);
+            img.src = `images/bar_passive.png`;
+        }
+    },
+    next: function(arr) {
+        if(this.position >= 3) {
+            this.position = -1;
+        }
+        this.position++;
+        let prevPosition = this.position - 1;
+        if(prevPosition < 0) {
+            prevPosition = arr.length - 1;
+        }
+        representationOldPrice.innerHTML = arr[this.position].oldPrice
+        representationSalePrice.innerHTML = arr[this.position].salePrice
+        representationImage.src = arr[this.position].directory
+        firstSlider.children[this.position].children[0].src = "images/bar_active.png"
+        firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
+    }
+}
 
 
 
