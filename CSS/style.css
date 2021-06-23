@@ -91,6 +91,7 @@ header .logo img {
 }
 
 .representation-block {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -790,4 +791,35 @@ footer .basic-footer .wrapper .logo-box img {
 
 .slider-buttons {
   text-align: center;
+}
+
+.sliders-scroll {
+  position: absolute;
+  width: 100%;
+  display: none;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 90px;
+}
+
+.sliders-scroll .sliders-scroll__btn {
+  font-size: 60px;
+  z-index: 2;
+  opacity: .7;
+  cursor: pointer;
+  width: 37px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+@media (min-width: 861px) {
+  .representation-block:hover .sliders-scroll {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }

@@ -5,6 +5,9 @@ const representationOldPrice = document.querySelector(".representation-block__pr
 const representationSalePrice = document.querySelector(".representation-block__price_new")
 const representationImage = document.querySelector(".representation-block__image")
 const firstSlider = document.querySelector(".first-slider")
+const btnLeftRepresentation = document.querySelector(".btn-slider__left")
+const btnRightRepresentation = document.querySelector(".btn-slider__right")
+
 
 ////Меню бургер/////////////
 
@@ -79,17 +82,47 @@ let mainRepresentation = {
         representationImage.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
+    },
+    back: function(arr) {
+        if(this.position <= 0) {
+            this.position = arr.length;
+        }
+        this.position--;
+        let prevPosition = this.position + 1;
+        if(prevPosition > arr.length - 1) {
+            prevPosition = 0;
+        }
+        representationOldPrice.innerHTML = arr[this.position].oldPrice
+        representationSalePrice.innerHTML = arr[this.position].salePrice
+        representationImage.src = arr[this.position].directory
+        firstSlider.children[this.position].children[0].src = "images/bar_active.png"
+        firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
     }
 }
 mainRepresentation.sliderGetNammed(representationArray);
 mainRepresentation.next(representationArray);
-function timerSlider() {
-    setInterval(function() {
-        mainRepresentation.next(representationArray);
-    }, 4000)
-}
-timerSlider()
 
+let timerSlider = setInterval(function() {
+    mainRepresentation.next(representationArray)
+}, 4000);
+///// кликаем по стрелочкам на главном слайдере/////
+
+btnRightRepresentation.addEventListener("click", rightClick)
+btnLeftRepresentation.addEventListener("click", leftClick)
+function clearTimer() {
+    clearInterval(timerSlider);
+    timerSlider = setInterval(function() {
+        mainRepresentation.next(representationArray)
+    }, 4000);
+}
+function rightClick() {
+    mainRepresentation.next(representationArray);
+    clearTimer();
+}
+function leftClick() {
+    mainRepresentation.back(representationArray);
+    clearTimer();
+}
 // setInterval('alert("прошла секунда")', 5000)
 
 ////////////слайдер витрина с платьями//////////////

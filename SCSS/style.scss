@@ -73,6 +73,7 @@ header {
 //////representation-block///////
 
 .representation-block {
+    position: relative;
     display: flex;
     padding: 120px 0px 40px 0px;
     &__info {
@@ -667,3 +668,32 @@ footer {
 .slider-buttons {
     text-align: center;
 }
+
+
+//////btns arrow//////////// 
+.sliders-scroll {
+    position: absolute;
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+    margin-top: 90px;
+    .sliders-scroll__btn {
+        font-size: 60px;
+        z-index: 2;
+        opacity: .7;
+        cursor: pointer;
+        width: 37px;
+        // overflow: hidden;
+        display: flex;
+        transition: 1s;
+    }
+}
+
+@media (min-width: 861px) {
+    .representation-block:hover {
+        .sliders-scroll {
+            display: flex;
+        }
+    }
+}
+
