@@ -69,7 +69,7 @@ let mainRepresentation = {
         }
     },
     next: function(arr) {
-        if(this.position >= 3) {
+        if(this.position >= arr.length - 1) {
             this.position = -1;
         }
         this.position++;
@@ -97,6 +97,25 @@ let mainRepresentation = {
         representationImage.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
+    },
+    sliderChoose: function(arr) {
+        return function(event) {
+            let newPosition;
+            if (event.target.tagName === "IMG") {
+                newPosition = Number(event.target.parentNode.className.match(/\d/))
+            } else if (event.target.tagName === "UL") {
+                return
+            } else {
+                newPosition = Number(event.target.className.match(/\d/))
+            }
+            if (newPosition != this.position) {
+                do {
+                    this.next(arr)
+                } while(newPosition != this.position)
+            }
+            clearTimer();
+        }
+       
     }
 }
 mainRepresentation.sliderGetNammed(representationArray);
@@ -126,6 +145,27 @@ function leftClick() {
 
 /////кликаем по элементам слайдера///// 
 
+let funcMainSliderChoose = mainRepresentation.sliderChoose(representationArray).bind(mainRepresentation)
+firstSlider.addEventListener('click', funcMainSliderChoose)
+
+
+// firstSlider.addEventListener('click', function(event){
+//     if (event.target.tagName === "IMG") {
+//         console.log(Number(event.target.parentNode.className.match(/\d/)))
+//     } else {
+//     console.log(Number(event.target.className.match(/\d/)))
+//     }
+// })
+//////оптимизирование загрузки изображений/////
+
+// function showWhatThis(event) {
+//     let clickTarget = event.target
+//     // if(clickTarget.document. == "img") {
+//     //     console.log("haha")
+//     // }
+//     console.log(clickTarget.element)
+// }
+// setInterval('alert("прошла секунда")', 5000)
 
 ////////////слайдер витрина с платьями//////////////
 
@@ -199,3 +239,24 @@ let dressRepresentation = {
   
 //   // использование:
 //   representation();
+
+
+
+/////рабочая но корявая функция
+
+// sliderChoose: function(event) {
+//     let newPosition;
+//     if (event.target.tagName === "IMG") {
+//         newPosition = Number(event.target.parentNode.className.match(/\d/))
+//     } else if (event.target.tagName === "UL") {
+//         return
+//     } else {
+//         newPosition = Number(event.target.className.match(/\d/))
+//     }
+//     if (newPosition != this.position) {
+//         do {
+//             this.next(representationArray)
+//         } while(newPosition != this.position)
+//     }
+//     clearTimer();
+// }
