@@ -126,9 +126,9 @@ let mainRepresentation = {
         this.touchEnd = endEvent.changedTouches[0].clientX
         console.log(this.touchEnd)
         if((this.touchStart + 100) < this.touchEnd) {
-            rightClick()
-        } else if(this.touchStart > (this.touchEnd + 100)) {
             leftClick()
+        } else if(this.touchStart > (this.touchEnd + 100)) {
+            rightClick()
         }
     }
 }
