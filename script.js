@@ -115,9 +115,34 @@ let mainRepresentation = {
             }
             clearTimer();
         }
-       
+    },
+    touchStart: 0,
+    touchEnd: 0,
+    touchStartFn: function(event) {
+        this.touchStart = event.changedTouches[0].clientX
+        console.log(this.touchStart)
+    },
+    touchEndFn: function(endEvent) {
+        this.touchEnd = endEvent.changedTouches[0].clientX
+        console.log(this.touchEnd)
+        if((this.touchStart + 100) < this.touchEnd) {
+            rightClick()
+        } else if(this.touchStart > (this.touchEnd + 100)) {
+            leftClick()
+        }
     }
 }
+
+///////свайпаем влево вправо - маин//////// 
+let some1 = mainRepresentation.touchStartFn.bind(mainRepresentation)
+let some2 = mainRepresentation.touchEndFn.bind(mainRepresentation)
+representationMajorSheet.addEventListener("touchstart", some1)
+representationMajorSheet.addEventListener("touchend", some2)
+
+
+
+
+
 mainRepresentation.sliderGetNammed(representationArray);
 mainRepresentation.next(representationArray);
 
@@ -148,22 +173,7 @@ function leftClick() {
 let funcMainSliderChoose = mainRepresentation.sliderChoose(representationArray).bind(mainRepresentation)
 firstSlider.addEventListener('click', funcMainSliderChoose)
 
-///////свайпаем влево вправо - маин//////// 
 
-representationMajorSheet.addEventListener("touchstart", touchSwipe)
-function touchSwipe(event) {
-    let startTouch = event.changedTouches[0].clientX
-    console.log(startTouch)
-    representationMajorSheet.addEventListener("touchend", (endEvent)=> {
-        let endTouch = endEvent.changedTouches[0].clientX
-        console.log(endTouch)
-        if(startTouch > endTouch + 100) {
-            leftClick()
-        } if(endTouch > startTouch + 100) {
-            rightClick()
-        }
-    })
-}
 // firstSlider.addEventListener('click', function(event){
 //     if (event.target.tagName === "IMG") {
 //         console.log(Number(event.target.parentNode.className.match(/\d/)))
