@@ -123,7 +123,9 @@ function leftClick() {
     mainRepresentation.back(representationArray);
     clearTimer();
 }
-// setInterval('alert("прошла секунда")', 5000)
+
+/////кликаем по элементам слайдера///// 
+
 
 ////////////слайдер витрина с платьями//////////////
 
