@@ -148,7 +148,22 @@ function leftClick() {
 let funcMainSliderChoose = mainRepresentation.sliderChoose(representationArray).bind(mainRepresentation)
 firstSlider.addEventListener('click', funcMainSliderChoose)
 
+///////свайпаем влево вправо - маин//////// 
 
+representationMajorSheet.addEventListener("touchstart", touchSwipe)
+function touchSwipe(event) {
+    let startTouch = event.changedTouches[0].clientX
+    console.log(startTouch)
+    representationMajorSheet.addEventListener("touchend", (endEvent)=> {
+        let endTouch = endEvent.changedTouches[0].clientX
+        console.log(endTouch)
+        if(startTouch > endTouch + 100) {
+            leftClick()
+        } if(endTouch > startTouch + 100) {
+            rightClick()
+        }
+    })
+}
 // firstSlider.addEventListener('click', function(event){
 //     if (event.target.tagName === "IMG") {
 //         console.log(Number(event.target.parentNode.className.match(/\d/)))
