@@ -5,6 +5,9 @@ const representationOldPrice = document.querySelector(".representation-block__pr
 const representationSalePrice = document.querySelector(".representation-block__price_new")
 const representationImage = document.querySelector(".representation-block__image")
 const firstSlider = document.querySelector(".first-slider")
+const secondSlider = document.querySelector(".second-slider")
+const thirdSlider = document.querySelector(".third-slider")
+
 const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
 
@@ -58,11 +61,11 @@ dressArray.push(coctailDress, pinkDress, superDress, ballDress);
 
 let mainRepresentation = {
     position: -1,
-    sliderGetNammed: function(arr) {
+    sliderGetNammed: function(arr, ulName) {
         for(let i = 0; i < arr.length; i++){
             let li = document.createElement('li');
             let img = document.createElement("img");
-            firstSlider.appendChild(li);
+            ulName.appendChild(li);
             li.className = `el${i}`;
             li.appendChild(img);
             img.src = `images/bar_passive.png`;
@@ -120,11 +123,9 @@ let mainRepresentation = {
     touchEnd: 0,
     touchStartFn: function(event) {
         this.touchStart = event.changedTouches[0].clientX
-        console.log(this.touchStart)
     },
     touchEndFn: function(endEvent) {
         this.touchEnd = endEvent.changedTouches[0].clientX
-        console.log(this.touchEnd)
         if((this.touchStart + 100) < this.touchEnd) {
             leftClick()
         } else if(this.touchStart > (this.touchEnd + 100)) {
@@ -142,9 +143,14 @@ representationMajorSheet.addEventListener("touchend", some2)
 
 
 
+///выводим контент на страницу/////
 
-mainRepresentation.sliderGetNammed(representationArray);
+mainRepresentation.sliderGetNammed(representationArray, firstSlider);
 mainRepresentation.next(representationArray);
+
+mainRepresentation.sliderGetNammed(dressArray ,secondSlider)
+
+mainRepresentation.sliderGetNammed(dressArray ,thirdSlider)
 
 let timerSlider = setInterval(function() {
     mainRepresentation.next(representationArray)
