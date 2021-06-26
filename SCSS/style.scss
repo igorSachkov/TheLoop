@@ -255,15 +255,22 @@ header {
     }
 }
 .goods {
-    background-image: url(../images/t-shirt.png);
-    background-size: contain;
     position: relative;
     background-repeat: no-repeat;
     height: 220px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     p {
         text-transform: uppercase;
         position: absolute;
         bottom: 10px;
+    }
+    h2 {
+        position: absolute;
+        bottom: 50px;
     }
 }
 .advertising {
@@ -642,33 +649,6 @@ footer {
         text-transform: uppercase;
     }
 }
-
-
-///////test box///////// не забыть удалить!!!
-.test-wrapper {
-    width: 500px;
-    margin: 0 auto;
-}
-.slider-container {
-    overflow: hidden;
-    background-color: pink;
-}
-.slider-track {
-    display: flex;
-    background-color: yellow;
-    transition: .5s;
-}
-.slider-item {
-    height: 400px;
-    min-width: 100%;
-    img {
-        width: 100%;
-    }
-}
-.slider-buttons {
-    text-align: center;
-}
-
 
 //////btns arrow//////////// 
 .sliders-scroll {

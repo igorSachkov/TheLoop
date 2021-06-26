@@ -325,17 +325,27 @@ header .logo img {
 }
 
 .goods {
-  background-image: url(../images/t-shirt.png);
-  background-size: contain;
   position: relative;
   background-repeat: no-repeat;
   height: 220px;
+}
+
+.goods img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .goods p {
   text-transform: uppercase;
   position: absolute;
   bottom: 10px;
+}
+
+.goods h2 {
+  position: absolute;
+  bottom: 50px;
 }
 
 .advertising {
@@ -759,38 +769,6 @@ footer .basic-footer .wrapper .logo-box img {
 .menu-box .menu__item {
   list-style-type: none;
   text-transform: uppercase;
-}
-
-.test-wrapper {
-  width: 500px;
-  margin: 0 auto;
-}
-
-.slider-container {
-  overflow: hidden;
-  background-color: pink;
-}
-
-.slider-track {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: yellow;
-  -webkit-transition: .5s;
-  transition: .5s;
-}
-
-.slider-item {
-  height: 400px;
-  min-width: 100%;
-}
-
-.slider-item img {
-  width: 100%;
-}
-
-.slider-buttons {
-  text-align: center;
 }
 
 .sliders-scroll {

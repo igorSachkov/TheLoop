@@ -7,6 +7,14 @@ const representationImage = document.querySelector(".representation-block__image
 const firstSlider = document.querySelector(".first-slider")
 const secondSlider = document.querySelector(".second-slider")
 const thirdSlider = document.querySelector(".third-slider")
+const firstContainer = document.querySelector(".flex-showcase-first")
+const secondContainer = document.querySelector(".flex-showcase-second")
+const tShirtContainer = document.querySelector(".products-grid")
+
+
+
+
+
 
 const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
@@ -34,6 +42,7 @@ hamburgerButton.addEventListener("click", hamburgerHandler)
 //////главная витрина с обувью/////
 const representationArray = new Array;
 const dressArray = new Array;
+const tShirtsArray = new Array;
 
 class Goods {
     constructor(options) {
@@ -51,11 +60,23 @@ representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackSh
 
 //////витрина с платьями///////////
 
-let coctailDress = new Goods({name: "Коктейльное платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png"});
-let pinkDress = new Goods({name: "Розовое платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png"});
-let superDress = new Goods({name: "Богатое платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png"});
-let ballDress = new Goods({name: "Бальное платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png"});
+let coctailDress = new Goods({name: "Коктейльное <br> платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png"});
+let pinkDress = new Goods({name: "Розовое <br> платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png"});
+let superDress = new Goods({name: "Богатое <br> платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png"});
+let ballDress = new Goods({name: "Бальное <br> платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png"});
 dressArray.push(coctailDress, pinkDress, superDress, ballDress);
+
+///////витрина с футболками//////
+
+let firstTShirt = new Goods({name: "Футболка", oldPrice: "₽ 1 500", directory: "images/t-shirt.png"})
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
+tShirtsArray.push(firstTShirt)
 
 ///////Слайдер глвное меню//////
 
@@ -71,7 +92,7 @@ let mainRepresentation = {
             img.src = `images/bar_passive.png`;
         }
     },
-    next: function(arr) {
+    next: function(arr, firstPrice, secondPrice, img) {
         if(this.position >= arr.length - 1) {
             this.position = -1;
         }
@@ -80,13 +101,13 @@ let mainRepresentation = {
         if(prevPosition < 0) {
             prevPosition = arr.length - 1;
         }
-        representationOldPrice.innerHTML = arr[this.position].oldPrice
-        representationSalePrice.innerHTML = arr[this.position].salePrice
-        representationImage.src = arr[this.position].directory
+        firstPrice.innerHTML = arr[this.position].oldPrice
+        secondPrice.innerHTML = arr[this.position].salePrice
+        img.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
     },
-    back: function(arr) {
+    back: function(arr, firstPrice, secondPrice, img) {
         if(this.position <= 0) {
             this.position = arr.length;
         }
@@ -95,13 +116,30 @@ let mainRepresentation = {
         if(prevPosition > arr.length - 1) {
             prevPosition = 0;
         }
-        representationOldPrice.innerHTML = arr[this.position].oldPrice
-        representationSalePrice.innerHTML = arr[this.position].salePrice
-        representationImage.src = arr[this.position].directory
+        firstPrice.innerHTML = arr[this.position].oldPrice
+        secondPrice.innerHTML = arr[this.position].salePrice
+        img.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
     },
-    sliderChoose: function(arr) {
+    ////метод для заполнения контейнера с платьями
+    fillContainer: function(arr, container, strClassName) {
+        for(let i = 0; i < arr.length; i++) {
+            let newDiv = document.createElement("div")
+            let newImg = document.createElement("img")
+            let newH2 = document.createElement("h2")
+            let newParagraph = document.createElement("p")
+            newDiv.className = strClassName + i
+            newImg.src = arr[i].directory
+            newH2.innerHTML = arr[i].name
+            newParagraph.innerHTML = arr[i].oldPrice
+            container.appendChild(newDiv)
+            newDiv.appendChild(newImg)
+            newDiv.appendChild(newH2)
+            newDiv.appendChild(newParagraph)
+        }
+    },
+    sliderChoose: function(arr, firstPrice, secondPrice, img) {
         return function(event) {
             let newPosition;
             if (event.target.tagName === "IMG") {
@@ -113,7 +151,7 @@ let mainRepresentation = {
             }
             if (newPosition != this.position) {
                 do {
-                    this.next(arr)
+                    this.next(arr, firstPrice, secondPrice, img)
                 } while(newPosition != this.position)
             }
             clearTimer();
@@ -135,10 +173,10 @@ let mainRepresentation = {
 }
 
 ///////свайпаем влево вправо - маин//////// 
-let some1 = mainRepresentation.touchStartFn.bind(mainRepresentation)
-let some2 = mainRepresentation.touchEndFn.bind(mainRepresentation)
-representationMajorSheet.addEventListener("touchstart", some1)
-representationMajorSheet.addEventListener("touchend", some2)
+let mainTouchStart = mainRepresentation.touchStartFn.bind(mainRepresentation)
+let mainTouchEnd = mainRepresentation.touchEndFn.bind(mainRepresentation)
+representationMajorSheet.addEventListener("touchstart", mainTouchStart)
+representationMajorSheet.addEventListener("touchend", mainTouchEnd)
 
 
 
@@ -146,14 +184,18 @@ representationMajorSheet.addEventListener("touchend", some2)
 ///выводим контент на страницу/////
 
 mainRepresentation.sliderGetNammed(representationArray, firstSlider);
-mainRepresentation.next(representationArray);
+mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
 
 mainRepresentation.sliderGetNammed(dressArray ,secondSlider)
 
 mainRepresentation.sliderGetNammed(dressArray ,thirdSlider)
 
+mainRepresentation.fillContainer(dressArray, firstContainer, "new-models new-models__")
+mainRepresentation.fillContainer(dressArray, secondContainer, "new-models new-models__")
+mainRepresentation.fillContainer(tShirtsArray, tShirtContainer, "goods goods-t-shirt__")
+
 let timerSlider = setInterval(function() {
-    mainRepresentation.next(representationArray)
+    mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
 }, 4000);
 ///// кликаем по стрелочкам на главном слайдере/////
 
@@ -162,22 +204,30 @@ btnLeftRepresentation.addEventListener("click", leftClick)
 function clearTimer() {
     clearInterval(timerSlider);
     timerSlider = setInterval(function() {
-        mainRepresentation.next(representationArray)
+        mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
     }, 4000);
 }
 function rightClick() {
-    mainRepresentation.next(representationArray);
+    mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
     clearTimer();
 }
 function leftClick() {
-    mainRepresentation.back(representationArray);
+    mainRepresentation.back(representationArray, representationOldPrice, representationSalePrice, representationImage);
     clearTimer();
 }
 
 /////кликаем по элементам слайдера///// 
+function funcSliderChoose(arr, firstPrice, secondPrice, img) {
+    return mainRepresentation.sliderChoose(arr, firstPrice, secondPrice, img).bind(mainRepresentation)
+}
+let funcMainSliderChoose = mainRepresentation.sliderChoose(representationArray, representationOldPrice, representationSalePrice, representationImage).bind(mainRepresentation)
+firstSlider.addEventListener('click', funcSliderChoose(representationArray, representationOldPrice, representationSalePrice, representationImage))
 
-let funcMainSliderChoose = mainRepresentation.sliderChoose(representationArray).bind(mainRepresentation)
-firstSlider.addEventListener('click', funcMainSliderChoose)
+secondSlider.addEventListener('click', )
+
+thirdSlider
+
+
 
 
 // firstSlider.addEventListener('click', function(event){
@@ -199,37 +249,6 @@ firstSlider.addEventListener('click', funcMainSliderChoose)
 // setInterval('alert("прошла секунда")', 5000)
 
 ////////////слайдер витрина с платьями//////////////
-
-let dressRepresentation = {
-    position: -1,
-    sliderGetNammed: function(arr) {
-        for(let i = 0; i < arr.length; i++){
-            let li = document.createElement('li');
-            let img = document.createElement("img");
-            firstSlider.appendChild(li);
-            li.className = `el${i}`;
-            li.appendChild(img);
-            img.src = `images/bar_passive.png`;
-        }
-    },
-    next: function(arr) {
-        if(this.position >= 3) {
-            this.position = -1;
-        }
-        this.position++;
-        let prevPosition = this.position - 1;
-        if(prevPosition < 0) {
-            prevPosition = arr.length - 1;
-        }
-        representationOldPrice.innerHTML = arr[this.position].oldPrice
-        representationSalePrice.innerHTML = arr[this.position].salePrice
-        representationImage.src = arr[this.position].directory
-        firstSlider.children[this.position].children[0].src = "images/bar_active.png"
-        firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
-    }
-}
-
-
 
 ///////test 
 
