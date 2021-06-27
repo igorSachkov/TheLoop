@@ -10,8 +10,10 @@ const thirdSlider = document.querySelector(".third-slider")
 const firstContainer = document.querySelector(".flex-showcase-first")
 const secondContainer = document.querySelector(".flex-showcase-second")
 const tShirtContainer = document.querySelector(".products-grid")
+const firstSwipeArea = document.querySelector(".first-area")
+const secondSwipeArea = document.querySelector(".second-area")
 
-
+let resizeBoolean = true
 
 
 
@@ -82,6 +84,8 @@ tShirtsArray.push(firstTShirt)
 
 let mainRepresentation = {
     position: -1,
+    firstPosition: 1,
+    secondPosition: 1,
     sliderGetNammed: function(arr, ulName) {
         for(let i = 0; i < arr.length; i++){
             let li = document.createElement('li');
@@ -162,22 +166,102 @@ let mainRepresentation = {
     touchStartFn: function(event) {
         this.touchStart = event.changedTouches[0].clientX
     },
-    touchEndFn: function(endEvent) {
-        this.touchEnd = endEvent.changedTouches[0].clientX
-        if((this.touchStart + 100) < this.touchEnd) {
-            leftClick()
-        } else if(this.touchStart > (this.touchEnd + 100)) {
-            rightClick()
+    touchEndFn: function(fnLeft, fnRight) {
+        return function(endEvent) {
+            this.touchEnd = endEvent.changedTouches[0].clientX
+            if((this.touchStart + 100) < this.touchEnd) {
+                fnLeft()
+            } else if(this.touchStart > (this.touchEnd + 100)) {
+                fnRight()
+            }
         }
+    },
+    nextFirstSlider: function(arr) {
+        if(resizeBoolean) {
+            
+            if(this.firstPosition >= arr.length) {
+                this.firstPosition = 1;
+                firstContainer.style.transform = `translate(0px)`
+            } else {
+            const windowWidth = firstContainer.firstChild.offsetWidth;
+            firstContainer.style.transform += `translate(-${windowWidth}px)`
+            this.firstPosition++
+            }
+        } else return
+    },
+    prevFirstSlider: function(arr) {
+        if(resizeBoolean) {
+            const windowWidth = firstContainer.firstChild.offsetWidth;
+            if(this.firstPosition <= 1) {
+                this.firstPosition = arr.length;
+                let allSlidersWidth = (arr.length - 1) * windowWidth
+                firstContainer.style.transform = `translate(-${allSlidersWidth}px)`
+                this.firstPosition = arr.length
+            } else {
+                firstContainer.style.transform += `translate(${windowWidth}px)`
+            this.firstPosition--
+            }
+        } else return
+    },
+    nextSecondSlider: function(arr) {
+        if(resizeBoolean) {
+            
+            if(this.secondPosition >= arr.length) {
+                this.secondPosition = 1;
+                secondContainer.style.transform = `translate(0px)`
+            } else {
+            const windowWidth = secondContainer.firstChild.offsetWidth;
+            secondContainer.style.transform += `translate(-${windowWidth}px)`
+            this.secondPosition++
+            }
+        } else return
+    },
+    prevSecondSlider: function(arr) {
+        if(resizeBoolean) {
+            const windowWidth = secondContainer.firstChild.offsetWidth;
+            if(this.secondPosition <= 1) {
+                this.secondPosition = arr.length;
+                let allSlidersWidth = (arr.length - 1) * windowWidth
+                secondContainer.style.transform = `translate(-${allSlidersWidth}px)`
+                this.secondPosition = arr.length
+            } else {
+                secondContainer.style.transform += `translate(${windowWidth}px)`
+            this.secondPosition--
+            }
+        } else return
     }
+}
+
+
+////////смена разрешения- фикс для карусели(сьезжает изображение после ////////
+
+window.addEventListener("resize", carouselResizeFix)
+function carouselResizeFix() {
+    if(window.innerWidth > 660) {
+        resizeBoolean = false
+        firstContainer.style.transform = `translate(0px)`
+        secondContainer.style.transform = `translate(0px)`
+    } else resizeBoolean = true
+
 }
 
 ///////свайпаем влево вправо - маин//////// 
 let mainTouchStart = mainRepresentation.touchStartFn.bind(mainRepresentation)
-let mainTouchEnd = mainRepresentation.touchEndFn.bind(mainRepresentation)
+let mainTouchEnd = mainRepresentation.touchEndFn(leftClick, rightClick).bind(mainRepresentation)
+let firstDressSliderEndTouch = mainRepresentation.touchEndFn(()=>mainRepresentation.prevFirstSlider(dressArray), ()=>mainRepresentation.nextFirstSlider(dressArray)).bind(mainRepresentation)
+let secondDressSliderEndTouch = mainRepresentation.touchEndFn(()=>mainRepresentation.prevSecondSlider(dressArray), ()=>mainRepresentation.nextSecondSlider(dressArray)).bind(mainRepresentation)
 representationMajorSheet.addEventListener("touchstart", mainTouchStart)
 representationMajorSheet.addEventListener("touchend", mainTouchEnd)
+firstSwipeArea.addEventListener("touchstart", mainTouchStart)
+firstSwipeArea.addEventListener("touchend", firstDressSliderEndTouch)
+secondSwipeArea.addEventListener("touchstart", mainTouchStart)
+secondSwipeArea.addEventListener("touchend", secondDressSliderEndTouch)
 
+function nextSlider(container) {
+    const windowWidth = container.firstChild.offsetWidth;
+    container.style.transform += `translate(-${windowWidth}px)`
+}
+// firstSwipeArea.addEventListener("touchend",)
 
 
 
@@ -197,6 +281,7 @@ mainRepresentation.fillContainer(tShirtsArray, tShirtContainer, "goods goods-t-s
 let timerSlider = setInterval(function() {
     mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
 }, 4000);
+
 ///// кликаем по стрелочкам на главном слайдере/////
 
 btnRightRepresentation.addEventListener("click", rightClick)
@@ -207,6 +292,9 @@ function clearTimer() {
         mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
     }, 4000);
 }
+
+
+///////функции перехода влево и вправо разных слайдов///////
 function rightClick() {
     mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
     clearTimer();
@@ -220,93 +308,62 @@ function leftClick() {
 function funcSliderChoose(arr, firstPrice, secondPrice, img) {
     return mainRepresentation.sliderChoose(arr, firstPrice, secondPrice, img).bind(mainRepresentation)
 }
-let funcMainSliderChoose = mainRepresentation.sliderChoose(representationArray, representationOldPrice, representationSalePrice, representationImage).bind(mainRepresentation)
 firstSlider.addEventListener('click', funcSliderChoose(representationArray, representationOldPrice, representationSalePrice, representationImage))
 
-secondSlider.addEventListener('click', )
 
-thirdSlider
-
-
-
-
-// firstSlider.addEventListener('click', function(event){
-//     if (event.target.tagName === "IMG") {
-//         console.log(Number(event.target.parentNode.className.match(/\d/)))
-//     } else {
-//     console.log(Number(event.target.className.match(/\d/)))
-//     }
-// })
-//////оптимизирование загрузки изображений/////
-
-// function showWhatThis(event) {
-//     let clickTarget = event.target
-//     // if(clickTarget.document. == "img") {
-//     //     console.log("haha")
-//     // }
-//     console.log(clickTarget.element)
-// }
-// setInterval('alert("прошла секунда")', 5000)
-
-////////////слайдер витрина с платьями//////////////
-
-///////test 
-
-// let position = 0;
-// const slidesToShow = 1; ///сколько элементов нам показывать
-// const slidesToScroll = 1; ////сколько элементов нам показывать
-// const container = document.querySelector(".slider-container")
-// const track = document.querySelector(".slider-track")
-// const item = document.querySelector(".slider-item")
-// const itemWidth = container.offsetWidth / slidesToShow;
-// const btnPrev = document.querySelector(".prev")
-// const btnNext = document.querySelector(".next")
-
-// btnPrev.addEventListener("click", back)
-// btnNext.addEventListener("click", next)
-// function next() {
-//     track.style.transform += `translate(-${itemWidth}px)`;
-//     position += 1;
-//     if(position >= representationArray.length) {
-//         position = 0;
-//         track.style.transform = ``;
-//     }
-// }
-// function back() {
-//     track.style.transform += `translate(${itemWidth}px)`;
-//     position -= 1;
-//     if(position < 0) {
-//         position = representationArray.length - 1;
-//         track.style.transform = `translate(-${itemWidth * (representationArray.length - 1)}px)`;
-//     }
-// }
-
-// function representation() {
+function dressSliderChoose(position, arr) {
+    return function(event) {
+        let newPosition;
+        if (event.target.tagName === "IMG") {
+            newPosition = Number(event.target.parentNode.className.match(/\d/))
+        } else if (event.target.tagName === "UL") {
+            return
+        } else {
+            newPosition = Number(event.target.className.match(/\d/))
+        }
+        if (newPosition != position) {
+            do {
+                this.nextFirstSlider(arr)
+            } while(newPosition != position)
+        }
+    }
     
-  
-//     let timerId = setInterval(next, 5000);
-//   }
-  
-//   // использование:
-//   representation();
+}
+secondSlider.addEventListener("click", find)
+thirdSlider.addEventListener("click", find)
+function find(event) {
+    let newPosition;
+        if (event.target.tagName === "IMG") {
+            newPosition = Number(event.target.parentNode.className.match(/\d/))
+        } else if (event.target.tagName === "UL") {
+            return
+        } else {
+            newPosition = Number(event.target.className.match(/\d/))
+        }
+        console.log(newPosition)
+        if (newPosition + 1 != mainRepresentation.firstPosition) {
+            do {
+                mainRepresentation.nextFirstSlider(dressArray)
+            } while(newPosition + 1 != mainRepresentation.firstPosition)
+        }
+        changeDressActiveBarFirst(newPosition)
+}        
+//secondSlider thirdSlider
+function activeBarDressFn(slider) {
+    slider.children[0].children[0].src = "images/bar_active.png"
+}
+activeBarDressFn(secondSlider)
+activeBarDressFn(thirdSlider)
+let secondSliderActiveBarPosition = 0;
+let thirdSliderActiveBarPosition = 0;
 
-
-
-/////рабочая но корявая функция
-
-// sliderChoose: function(event) {
-//     let newPosition;
-//     if (event.target.tagName === "IMG") {
-//         newPosition = Number(event.target.parentNode.className.match(/\d/))
-//     } else if (event.target.tagName === "UL") {
-//         return
-//     } else {
-//         newPosition = Number(event.target.className.match(/\d/))
-//     }
-//     if (newPosition != this.position) {
-//         do {
-//             this.next(representationArray)
-//         } while(newPosition != this.position)
-//     }
-//     clearTimer();
-// }
+function changeDressActiveBarFirst(newPosition) {
+    secondSlider.children[secondSliderActiveBarPosition].children[0].src = "images/bar_passive.png"
+    secondSlider.children[newPosition].children[0].src = "images/bar_active.png"
+    secondSliderActiveBarPosition = newPosition
+}
+function changeDressActiveBarSecond(newPosition) {
+    secondSlider.children[thirdSliderActiveBarPosition].children[0].src = "images/bar_passive.png"
+    secondSlider.children[newPosition].children[0].src = "images/bar_active.png"
+    thirdSliderActiveBarPosition = newPosition
+}

@@ -507,12 +507,34 @@ footer {
     .representation-block {
         padding: 1% 0px 1% 0px;
     }
+    .carousel-container {
+        width: max-content;
+        margin: 0 auto;
+        overflow: hidden;
+    }
     .flex-showcase {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: start;
+        width: 270px;
+
+
+
+
+
+        /////////сделать что нибудь с анимацией при сзажтии страницы!!!!!!!!!!!!!!!!!!
+
+
+
+        transition-duration: 1s;
+
+
+
+        
+        margin: 0 auto;
         .new-models {
-            width: 100%;
-        }
-        .new-models:not(:first-child) {
-            display: none;
+            min-width: 100%;
         }
     }
     .advertising {
