@@ -631,10 +631,10 @@ footer .basic-footer .wrapper .logo-box img {
         -ms-flex-pack: start;
             justify-content: start;
     width: 270px;
-    -webkit-transition: -webkit-transform 1s ease-in;
-    transition: -webkit-transform 1s ease-in;
-    transition: transform 1s ease-in;
-    transition: transform 1s ease-in, -webkit-transform 1s ease-in;
+    -webkit-transition: -webkit-transform .4s ease-in;
+    transition: -webkit-transform .4s ease-in;
+    transition: transform .4s ease-in;
+    transition: transform .4s ease-in, -webkit-transform .4s ease-in;
     margin: 0 auto;
   }
   .flex-showcase .new-models {
