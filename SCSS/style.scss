@@ -518,20 +518,7 @@ footer {
         flex-wrap: nowrap;
         justify-content: start;
         width: 270px;
-
-
-
-
-
-        /////////сделать что нибудь с анимацией при сзажтии страницы!!!!!!!!!!!!!!!!!!
-
-
-
-        transition-duration: 1s;
-
-
-
-        
+        transition: transform 1s ease-in;  
         margin: 0 auto;
         .new-models {
             min-width: 100%;
@@ -685,7 +672,6 @@ footer {
         opacity: .7;
         cursor: pointer;
         width: 37px;
-        // overflow: hidden;
         display: flex;
         transition: 1s;
     }
