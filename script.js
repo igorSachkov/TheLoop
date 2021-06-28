@@ -18,14 +18,6 @@ const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
 const imgLoader = document.querySelector(".img-loader")
 
-
-
-
-
-
-
-
-
 ////Меню бургер/////////////
 
 function hamburgerHandler() {
