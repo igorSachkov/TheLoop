@@ -3,7 +3,11 @@ $colorSecond: #212121;
 $Monserat: 'Montserrat', sans-serif;
 $colorAccent: #D7B399;
 $colorImporant: #D84033;
-
+@mixin visibleMenu {
+    position: absolute;
+    transform: translate(0px, 0px);
+    opacity: 1;
+}
 * {
     margin: 0;
     padding: 0;
@@ -73,6 +77,7 @@ header {
 //////representation-block///////
 
 .representation-block {
+    overflow: hidden;
     position: relative;
     display: flex;
     padding: 120px 0px 40px 0px;
@@ -683,4 +688,50 @@ footer {
             display: flex;
         }
     }
+}
+
+.drop-menu {
+    position: absolute;
+    transform: translate(0px, -200px);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: .2s ease-out;
+    z-index: 2;
+    a {
+        padding: 0 10% 0 10%;
+        width: 100%;
+        margin-top: 10px;
+        border-bottom: 1px dotted black;
+    }
+}
+.items-for-mens:hover {
+    .for-men {
+        @include visibleMenu
+    }
+}
+.items-for-womans:hover {
+    .for-woman {
+        @include visibleMenu
+    }
+}
+.items-for-children:hover {
+    .for-children {
+        @include visibleMenu
+    }
+}
+.img__mormal-position {
+    transform: translate(0px, 0px);
+    opacity: 1;
+}
+.img__swipe-right {
+    transform: translate(600px, 0px);
+    opacity: 0;
+}
+.representation-block__image {
+    transition: .2s ease-in;
+}
+.img__swipe-left {
+    transform: translate(-600px, 0px);
+    opacity: 0;
 }

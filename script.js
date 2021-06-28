@@ -17,6 +17,15 @@ let resizeBoolean = true
 const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
 
+
+
+
+
+
+
+
+
+
 ////Меню бургер/////////////
 
 function hamburgerHandler() {
@@ -105,6 +114,12 @@ let mainRepresentation = {
         img.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
+        representationImage.className += " img__swipe-left"
+        setTimeout(()=> {
+            representationImage.classList.remove("img__swipe-left")
+            representationImage.className += " img__swipe-right"
+            setTimeout(()=> representationImage.classList.remove("img__swipe-right"), 200)
+        }, 400)
     },
     back: function(arr, firstPrice, secondPrice, img) {
         if(this.position <= 0) {
@@ -120,6 +135,12 @@ let mainRepresentation = {
         img.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
+        representationImage.className += " img__swipe-right"
+        setTimeout(()=> {
+            representationImage.classList.remove("img__swipe-right")
+            representationImage.className += " img__swipe-left"
+            setTimeout(()=> representationImage.classList.remove("img__swipe-left"), 200)
+        }, 400)
     },
     ////метод для заполнения контейнера с платьями
     fillContainer: function(arr, container, strClassName) {
