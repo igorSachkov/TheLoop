@@ -16,7 +16,7 @@ const secondSwipeArea = document.querySelector(".second-area")
 let resizeBoolean = true
 const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
-
+const imgLoader = document.querySelector(".img-loader")
 
 
 
@@ -111,11 +111,11 @@ let mainRepresentation = {
         }
         firstPrice.innerHTML = arr[this.position].oldPrice
         secondPrice.innerHTML = arr[this.position].salePrice
-        img.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
         representationImage.className += " img__swipe-left"
         setTimeout(()=> {
+            img.src = arr[this.position].directory
             representationImage.classList.remove("img__swipe-left")
             representationImage.className += " img__swipe-right"
             setTimeout(()=> representationImage.classList.remove("img__swipe-right"), 200)
@@ -132,11 +132,11 @@ let mainRepresentation = {
         }
         firstPrice.innerHTML = arr[this.position].oldPrice
         secondPrice.innerHTML = arr[this.position].salePrice
-        img.src = arr[this.position].directory
         firstSlider.children[this.position].children[0].src = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
         representationImage.className += " img__swipe-right"
         setTimeout(()=> {
+            img.src = arr[this.position].directory
             representationImage.classList.remove("img__swipe-right")
             representationImage.className += " img__swipe-left"
             setTimeout(()=> representationImage.classList.remove("img__swipe-left"), 200)
@@ -372,3 +372,14 @@ function changeDressActiveBarSecond(newPosition) {
     thirdSlider.children[newPosition].children[0].src = "images/bar_active.png"
     thirdSliderActiveBarPosition = newPosition
 }
+
+///////прогружаю изображения из маин слайдера (т.к. они выводяться только со сменой src)
+function imageLoaderFn(arr) {
+    for(let i = 1; i < arr.length; i++) {
+        let img = document.createElement("img")
+        imgLoader.appendChild(img)
+        img.src = arr[i].directory
+    }
+    setTimeout(()=> imgLoader.parentNode.removeChild(imgLoader), 0)
+}
+setTimeout(()=> imageLoaderFn(representationArray), 1000)

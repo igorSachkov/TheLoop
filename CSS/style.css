@@ -894,3 +894,10 @@ footer .basic-footer .wrapper .logo-box img {
           transform: translate(-600px, 0px);
   opacity: 0;
 }
+
+.img-loader {
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
