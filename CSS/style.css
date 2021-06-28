@@ -90,6 +90,20 @@ header .logo img {
   margin-left: 15px;
 }
 
+.basket__number {
+  margin: 0 auto;
+  padding-left: 14px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.03em;
+  color: #FFFFFF;
+}
+
 .representation-block {
   overflow: hidden;
   position: relative;

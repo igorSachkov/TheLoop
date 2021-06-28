@@ -17,7 +17,7 @@ let resizeBoolean = true
 const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
 const imgLoader = document.querySelector(".img-loader")
-
+const numberOfItemsInTheCart = document.querySelector(".basket__number")
 ////Меню бургер/////////////
 
 function hamburgerHandler() {
@@ -375,3 +375,13 @@ function imageLoaderFn(arr) {
     setTimeout(()=> imgLoader.parentNode.removeChild(imgLoader), 0)
 }
 setTimeout(()=> imageLoaderFn(representationArray), 1000)
+
+///////Добавление товаров в корзину
+
+let shoppingСart = new Array(5);
+
+function shoppingCartCheck(arr) {
+    if(arr.length === 0) numberOfItemsInTheCart.innerHTML = ""
+    else numberOfItemsInTheCart.innerHTML = arr.length
+}
+shoppingCartCheck(shoppingСart)
