@@ -12,15 +12,10 @@ const secondContainer = document.querySelector(".flex-showcase-second")
 const tShirtContainer = document.querySelector(".products-grid")
 const firstSwipeArea = document.querySelector(".first-area")
 const secondSwipeArea = document.querySelector(".second-area")
-
+/////переменная -можно ли листать слайдеры.
 let resizeBoolean = true
-
-
-
-
 const btnLeftRepresentation = document.querySelector(".btn-slider__left")
 const btnRightRepresentation = document.querySelector(".btn-slider__right")
-
 
 ////Меню бургер/////////////
 
@@ -42,10 +37,10 @@ window.addEventListener("resize", ()=> {
 hamburgerButton.addEventListener("click", hamburgerHandler)
 
 //////главная витрина с обувью/////
+
 const representationArray = new Array;
 const dressArray = new Array;
 const tShirtsArray = new Array;
-
 class Goods {
     constructor(options) {
         this.name = options.name
@@ -161,6 +156,7 @@ let mainRepresentation = {
             clearTimer();
         }
     },
+    ///////мой свайп
     touchStart: 0,
     touchEnd: 0,
     touchStartFn: function(event) {
@@ -178,7 +174,6 @@ let mainRepresentation = {
     },
     nextFirstSlider: function(arr) {
         if(resizeBoolean) {
-            
             if(this.firstPosition >= arr.length) {
                 this.firstPosition = 1;
                 firstContainer.style.transform = `translate(0px)`
@@ -187,6 +182,7 @@ let mainRepresentation = {
             firstContainer.style.transform += `translate(-${windowWidth}px)`
             this.firstPosition++
             }
+            changeDressActiveBarFirst(this.firstPosition - 1)
         } else return
     },
     prevFirstSlider: function(arr) {
@@ -201,6 +197,7 @@ let mainRepresentation = {
                 firstContainer.style.transform += `translate(${windowWidth}px)`
             this.firstPosition--
             }
+            changeDressActiveBarFirst(this.firstPosition - 1)
         } else return
     },
     nextSecondSlider: function(arr) {
@@ -214,6 +211,7 @@ let mainRepresentation = {
             secondContainer.style.transform += `translate(-${windowWidth}px)`
             this.secondPosition++
             }
+            changeDressActiveBarSecond(this.secondPosition - 1)
         } else return
     },
     prevSecondSlider: function(arr) {
@@ -228,10 +226,10 @@ let mainRepresentation = {
                 secondContainer.style.transform += `translate(${windowWidth}px)`
             this.secondPosition--
             }
+            changeDressActiveBarSecond(this.secondPosition - 1)
         } else return
     }
 }
-
 
 ////////смена разрешения- фикс для карусели(сьезжает изображение после ////////
 
@@ -242,7 +240,6 @@ function carouselResizeFix() {
         firstContainer.style.transform = `translate(0px)`
         secondContainer.style.transform = `translate(0px)`
     } else resizeBoolean = true
-
 }
 
 ///////свайпаем влево вправо - маин//////// 
@@ -261,19 +258,13 @@ function nextSlider(container) {
     const windowWidth = container.firstChild.offsetWidth;
     container.style.transform += `translate(-${windowWidth}px)`
 }
-// firstSwipeArea.addEventListener("touchend",)
-
-
 
 ///выводим контент на страницу/////
 
 mainRepresentation.sliderGetNammed(representationArray, firstSlider);
 mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
-
 mainRepresentation.sliderGetNammed(dressArray ,secondSlider)
-
 mainRepresentation.sliderGetNammed(dressArray ,thirdSlider)
-
 mainRepresentation.fillContainer(dressArray, firstContainer, "new-models new-models__")
 mainRepresentation.fillContainer(dressArray, secondContainer, "new-models new-models__")
 mainRepresentation.fillContainer(tShirtsArray, tShirtContainer, "goods goods-t-shirt__")
@@ -293,7 +284,6 @@ function clearTimer() {
     }, 4000);
 }
 
-
 ///////функции перехода влево и вправо разных слайдов///////
 function rightClick() {
     mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
@@ -309,29 +299,9 @@ function funcSliderChoose(arr, firstPrice, secondPrice, img) {
     return mainRepresentation.sliderChoose(arr, firstPrice, secondPrice, img).bind(mainRepresentation)
 }
 firstSlider.addEventListener('click', funcSliderChoose(representationArray, representationOldPrice, representationSalePrice, representationImage))
-
-
-function dressSliderChoose(position, arr) {
-    return function(event) {
-        let newPosition;
-        if (event.target.tagName === "IMG") {
-            newPosition = Number(event.target.parentNode.className.match(/\d/))
-        } else if (event.target.tagName === "UL") {
-            return
-        } else {
-            newPosition = Number(event.target.className.match(/\d/))
-        }
-        if (newPosition != position) {
-            do {
-                this.nextFirstSlider(arr)
-            } while(newPosition != position)
-        }
-    }
-    
-}
-secondSlider.addEventListener("click", find)
-thirdSlider.addEventListener("click", find)
-function find(event) {
+secondSlider.addEventListener("click", findSecond)
+thirdSlider.addEventListener("click", findThird)
+function findSecond(event) {
     let newPosition;
         if (event.target.tagName === "IMG") {
             newPosition = Number(event.target.parentNode.className.match(/\d/))
@@ -340,15 +310,29 @@ function find(event) {
         } else {
             newPosition = Number(event.target.className.match(/\d/))
         }
-        console.log(newPosition)
         if (newPosition + 1 != mainRepresentation.firstPosition) {
             do {
                 mainRepresentation.nextFirstSlider(dressArray)
             } while(newPosition + 1 != mainRepresentation.firstPosition)
         }
         changeDressActiveBarFirst(newPosition)
-}        
-//secondSlider thirdSlider
+}
+function findThird(event) {
+    let newPosition;
+        if (event.target.tagName === "IMG") {
+            newPosition = Number(event.target.parentNode.className.match(/\d/))
+        } else if (event.target.tagName === "UL") {
+            return
+        } else {
+            newPosition = Number(event.target.className.match(/\d/))
+        }
+        if (newPosition + 1 != mainRepresentation.secondPosition) {
+            do {
+                mainRepresentation.nextSecondSlider(dressArray)
+            } while(newPosition + 1 != mainRepresentation.secondPosition)
+        }
+        changeDressActiveBarSecond(newPosition)
+}
 function activeBarDressFn(slider) {
     slider.children[0].children[0].src = "images/bar_active.png"
 }
@@ -363,7 +347,7 @@ function changeDressActiveBarFirst(newPosition) {
     secondSliderActiveBarPosition = newPosition
 }
 function changeDressActiveBarSecond(newPosition) {
-    secondSlider.children[thirdSliderActiveBarPosition].children[0].src = "images/bar_passive.png"
-    secondSlider.children[newPosition].children[0].src = "images/bar_active.png"
+    thirdSlider.children[thirdSliderActiveBarPosition].children[0].src = "images/bar_passive.png"
+    thirdSlider.children[newPosition].children[0].src = "images/bar_active.png"
     thirdSliderActiveBarPosition = newPosition
 }
