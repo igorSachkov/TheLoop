@@ -41,7 +41,7 @@ hamburgerButton.addEventListener("click", hamburgerHandler)
 
 const representationArray = new Array;
 const dressArray = new Array;
-const tShirtsArray = new Array;
+const tShirtsArray = new Array(8);
 class Goods {
     constructor(options) {
         this.name = options.name
@@ -67,15 +67,7 @@ dressArray.push(coctailDress, pinkDress, superDress, ballDress);
 ///////витрина с футболками//////
 
 let firstTShirt = new Goods({name: "Футболка", oldPrice: "₽ 1 500", directory: "images/t-shirt.png"})
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-tShirtsArray.push(firstTShirt)
-
+tShirtsArray.fill(firstTShirt)
 ///////Слайдер глвное меню//////
 
 let mainRepresentation = {
