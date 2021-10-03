@@ -390,4 +390,3 @@ function shoppingCartCheck(arr) {
     else numberOfItemsInTheCart.innerHTML = arr.length
 }
 shoppingCartCheck(shoppingСart)
-
