@@ -1,3 +1,42 @@
+// import { Goods, representationArray, dressArray, tShirtsArray, someFunc } from "./goods";
+
+class Goods {
+    public name: string;
+    public oldPrice: string;
+    public salePrice?: string;
+    public directory: string;
+    constructor(options: {name: string, oldPrice: string, salePrice?: string, directory: string}) {
+        
+        this.name = options.name
+        this.oldPrice = options.oldPrice
+        this.salePrice = options.salePrice
+        this.directory = options.directory
+    }
+}
+const nikeRedShoe = new Goods({name: "Red Nike",oldPrice: "9 900 ₽",salePrice: "1 900 ₽",directory: "images/running_shoes.png"});
+const nikeGreenShoe = new Goods({name: "Green Nike", oldPrice: "8 999 ₽", salePrice: "1 750 ₽", directory: "images/running_shoes1.png"});
+const nikePurpleShoe = new Goods({name: "Purple Nike", oldPrice: "10 100 ₽", salePrice: "2 100 ₽", directory: "images/running_shoes2.png"});
+const nikeBlackShoe = new Goods({name: "Black Nike", oldPrice: "17 200 ₽", salePrice: "3 400 ₽", directory: "images/running_shoes3.png"});
+const representationArray: Array<Goods> = [nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe];
+
+//////витрина с платьями///////////
+
+const cocktailDress = new Goods({name: "Коктейльное <br> платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png"});
+const pinkDress = new Goods({name: "Розовое <br> платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png"});
+const superDress = new Goods({name: "Богатое <br> платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png"});
+const ballDress = new Goods({name: "Бальное <br> платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png"});
+const dressArray: Array<Goods> = [cocktailDress, pinkDress, superDress, ballDress];
+
+///////витрина с футболками//////
+
+const tShirtsArray: Array<Goods> = new Array(8);
+tShirtsArray.fill(new Goods({name: "Футболка", oldPrice: "₽ 1 500", directory: "images/t-shirt.png"}))
+
+
+// export {Goods, representationArray, dressArray, tShirtsArray};
+
+
+
 const hamburgerButton: HTMLElement = document.querySelector('#hamburger-btn')!;
 const menuBox: HTMLElement  = document.querySelector(".menu-box")!
 const representationMajorSheet: HTMLElement = document.querySelector(".representation-major-sheet")!
@@ -39,40 +78,7 @@ hamburgerButton.addEventListener("click", hamburgerHandler)
 
 //////главная витрина с обувью/////
 
-const representationArray: Array<Goods> = new Array;
-const dressArray: Array<Goods> = new Array;
-const tShirtsArray: Array<Goods> = new Array(8);
-class Goods {
-    public name: string;
-    public oldPrice: string;
-    public salePrice?: string;
-    public directory: string;
-    constructor(options: {name: string, oldPrice: string, salePrice?: string, directory: string}) {
-        
-        this.name = options.name
-        this.oldPrice = options.oldPrice
-        this.salePrice = options.salePrice
-        this.directory = options.directory
-    }
-}
-const nikeRedShoe = new Goods({name: "Red Nike",oldPrice: "9 900 ₽",salePrice: "1 900 ₽",directory: "images/running_shoes.png"});
-const nikeGreenShoe = new Goods({name: "Green Nike", oldPrice: "8 999 ₽", salePrice: "1 750 ₽", directory: "images/running_shoes1.png"});
-const nikePurpleShoe = new Goods({name: "Purple Nike", oldPrice: "10 100 ₽", salePrice: "2 100 ₽", directory: "images/running_shoes2.png"});
-const nikeBlackShoe = new Goods({name: "Black Nike", oldPrice: "17 200 ₽", salePrice: "3 400 ₽", directory: "images/running_shoes3.png"});
-representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe);
 
-//////витрина с платьями///////////
-
-const cocktailDress = new Goods({name: "Коктейльное <br> платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png"});
-const pinkDress = new Goods({name: "Розовое <br> платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png"});
-const superDress = new Goods({name: "Богатое <br> платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png"});
-const ballDress = new Goods({name: "Бальное <br> платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png"});
-dressArray.push(cocktailDress, pinkDress, superDress, ballDress);
-
-///////витрина с футболками//////
-
-const firstTShirt = new Goods({name: "Футболка", oldPrice: "₽ 1 500", directory: "images/t-shirt.png"})
-tShirtsArray.fill(firstTShirt)
 ///////Слайдер глвное меню//////
 
 const mainRepresentation = {
@@ -102,7 +108,9 @@ const mainRepresentation = {
         }
         firstPrice.innerHTML = arr[this.position].oldPrice
         secondPrice.innerHTML = arr[this.position].salePrice
-        firstSlider.children[this.position].children[0].src = "images/bar_active.png"
+        
+        
+        firstSlider.children[this.position].children[0].src  = "images/bar_active.png"
         firstSlider.children[prevPosition].children[0].src = "images/bar_passive.png"
         representationImage.className += " img__swipe-left"
         setTimeout(()=> {
@@ -151,7 +159,7 @@ const mainRepresentation = {
             newDiv.appendChild(newParagraph)
         }
     },
-    sliderChoose: function(arr: Array<Goods>, firstPrice: HTMLElement, secondPrice: HTMLElement, img: HTMLImageElement) {
+    sliderChoose: function(arr: Array<Goods>, firstPrice: HTMLElement, secondPrice: HTMLElement, img: HTMLImageElement): Function {
         return function(event) {
             
             let newPosition: number;
@@ -173,11 +181,11 @@ const mainRepresentation = {
     ///////мой свайп
     touchStart: 0,
     touchEnd: 0,
-    touchStartFn: function(event) {
+    touchStartFn: function(event: TouchEvent) {
         this.touchStart = event.changedTouches[0].clientX
     },
-    touchEndFn: function(fnLeft, fnRight) {
-        return function(endEvent) {
+    touchEndFn: function(fnLeft: Function, fnRight: Function): Function {
+        return function(endEvent: TouchEvent) {
             this.touchEnd = endEvent.changedTouches[0].clientX
             if((this.touchStart + 100) < this.touchEnd) {
                 fnLeft()
@@ -186,7 +194,7 @@ const mainRepresentation = {
             }
         }
     },
-    nextFirstSlider: function(arr) {
+    nextFirstSlider: function(arr: Array<Goods>) {
         if(resizeBoolean) {
             if(this.firstPosition >= arr.length) {
                 this.firstPosition = 1;
@@ -199,7 +207,7 @@ const mainRepresentation = {
             changeDressActiveBarFirst(this.firstPosition - 1)
         } else return
     },
-    prevFirstSlider: function(arr) {
+    prevFirstSlider: function(arr: Array<Goods>) {
         if(resizeBoolean) {
             const windowWidth = firstContainer.firstChild.offsetWidth;
             if(this.firstPosition <= 1) {
@@ -214,7 +222,7 @@ const mainRepresentation = {
             changeDressActiveBarFirst(this.firstPosition - 1)
         } else return
     },
-    nextSecondSlider: function(arr) {
+    nextSecondSlider: function(arr: Array<Goods>) {
         if(resizeBoolean) {
             
             if(this.secondPosition >= arr.length) {
@@ -228,7 +236,7 @@ const mainRepresentation = {
             changeDressActiveBarSecond(this.secondPosition - 1)
         } else return
     },
-    prevSecondSlider: function(arr) {
+    prevSecondSlider: function(arr: Array<Goods>) {
         if(resizeBoolean) {
             const windowWidth = secondContainer.firstChild.offsetWidth;
             if(this.secondPosition <= 1) {
@@ -257,10 +265,10 @@ function carouselResizeFix() {
 }
 
 ///////свайпаем влево вправо - маин//////// 
-let mainTouchStart = mainRepresentation.touchStartFn.bind(mainRepresentation)
-let mainTouchEnd = mainRepresentation.touchEndFn(leftClick, rightClick).bind(mainRepresentation)
-let firstDressSliderEndTouch = mainRepresentation.touchEndFn(()=>mainRepresentation.prevFirstSlider(dressArray), ()=>mainRepresentation.nextFirstSlider(dressArray)).bind(mainRepresentation)
-let secondDressSliderEndTouch = mainRepresentation.touchEndFn(()=>mainRepresentation.prevSecondSlider(dressArray), ()=>mainRepresentation.nextSecondSlider(dressArray)).bind(mainRepresentation)
+const mainTouchStart = mainRepresentation.touchStartFn.bind(mainRepresentation)
+const mainTouchEnd = mainRepresentation.touchEndFn(leftClick, rightClick).bind(mainRepresentation)
+const firstDressSliderEndTouch = mainRepresentation.touchEndFn(()=>mainRepresentation.prevFirstSlider(dressArray), ()=>mainRepresentation.nextFirstSlider(dressArray)).bind(mainRepresentation)
+const secondDressSliderEndTouch = mainRepresentation.touchEndFn(()=>mainRepresentation.prevSecondSlider(dressArray), ()=>mainRepresentation.nextSecondSlider(dressArray)).bind(mainRepresentation)
 representationMajorSheet.addEventListener("touchstart", mainTouchStart)
 representationMajorSheet.addEventListener("touchend", mainTouchEnd)
 firstSwipeArea.addEventListener("touchstart", mainTouchStart)
@@ -268,10 +276,6 @@ firstSwipeArea.addEventListener("touchend", firstDressSliderEndTouch)
 secondSwipeArea.addEventListener("touchstart", mainTouchStart)
 secondSwipeArea.addEventListener("touchend", secondDressSliderEndTouch)
 
-function nextSlider(container) {
-    const windowWidth = container.firstChild.offsetWidth;
-    container.style.transform += `translate(-${windowWidth}px)`
-}
 
 ///выводим контент на страницу/////
 
@@ -309,7 +313,7 @@ function leftClick() {
 }
 
 /////кликаем по элементам слайдера///// 
-function funcSliderChoose(arr, firstPrice, secondPrice, img) {
+function funcSliderChoose(arr: Array<Goods>, firstPrice: HTMLElement, secondPrice: HTMLElement, img: HTMLImageElement) {
     return mainRepresentation.sliderChoose(arr, firstPrice, secondPrice, img).bind(mainRepresentation)
 }
 firstSlider.addEventListener('click', funcSliderChoose(representationArray, representationOldPrice, representationSalePrice, representationImage))
@@ -347,7 +351,7 @@ function findThird(event) {
         }
         changeDressActiveBarSecond(newPosition)
 }
-function activeBarDressFn(slider) {
+function activeBarDressFn(slider: HTMLElement) {
     slider.children[0].children[0].src = "images/bar_active.png"
 }
 activeBarDressFn(secondSlider)
@@ -367,7 +371,7 @@ function changeDressActiveBarSecond(newPosition) {
 }
 
 ///////прогружаю изображения из маин слайдера (т.к. они выводяться только со сменой src)
-function imageLoaderFn(arr) {
+function imageLoaderFn(arr: Array<Goods>) {
     for(let i = 1; i < arr.length; i++) {
         let img = document.createElement("img")
         imgLoader.appendChild(img)
@@ -386,3 +390,4 @@ function shoppingCartCheck(arr) {
     else numberOfItemsInTheCart.innerHTML = arr.length
 }
 shoppingCartCheck(shoppingСart)
+

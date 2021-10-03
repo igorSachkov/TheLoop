@@ -1,4 +1,24 @@
 "use strict";
+class Goods {
+    constructor(options) {
+        this.name = options.name;
+        this.oldPrice = options.oldPrice;
+        this.salePrice = options.salePrice;
+        this.directory = options.directory;
+    }
+}
+const nikeRedShoe = new Goods({ name: "Red Nike", oldPrice: "9 900 ₽", salePrice: "1 900 ₽", directory: "images/running_shoes.png" });
+const nikeGreenShoe = new Goods({ name: "Green Nike", oldPrice: "8 999 ₽", salePrice: "1 750 ₽", directory: "images/running_shoes1.png" });
+const nikePurpleShoe = new Goods({ name: "Purple Nike", oldPrice: "10 100 ₽", salePrice: "2 100 ₽", directory: "images/running_shoes2.png" });
+const nikeBlackShoe = new Goods({ name: "Black Nike", oldPrice: "17 200 ₽", salePrice: "3 400 ₽", directory: "images/running_shoes3.png" });
+const representationArray = [nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe];
+const cocktailDress = new Goods({ name: "Коктейльное <br> платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png" });
+const pinkDress = new Goods({ name: "Розовое <br> платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png" });
+const superDress = new Goods({ name: "Богатое <br> платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png" });
+const ballDress = new Goods({ name: "Бальное <br> платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png" });
+const dressArray = [cocktailDress, pinkDress, superDress, ballDress];
+const tShirtsArray = new Array(8);
+tShirtsArray.fill(new Goods({ name: "Футболка", oldPrice: "₽ 1 500", directory: "images/t-shirt.png" }));
 const hamburgerButton = document.querySelector('#hamburger-btn');
 const menuBox = document.querySelector(".menu-box");
 const representationMajorSheet = document.querySelector(".representation-major-sheet");
@@ -35,29 +55,6 @@ window.addEventListener("resize", () => {
     }
 });
 hamburgerButton.addEventListener("click", hamburgerHandler);
-const representationArray = new Array;
-const dressArray = new Array;
-const tShirtsArray = new Array(8);
-class Goods {
-    constructor(options) {
-        this.name = options.name;
-        this.oldPrice = options.oldPrice;
-        this.salePrice = options.salePrice;
-        this.directory = options.directory;
-    }
-}
-const nikeRedShoe = new Goods({ name: "Red Nike", oldPrice: "9 900 ₽", salePrice: "1 900 ₽", directory: "images/running_shoes.png" });
-const nikeGreenShoe = new Goods({ name: "Green Nike", oldPrice: "8 999 ₽", salePrice: "1 750 ₽", directory: "images/running_shoes1.png" });
-const nikePurpleShoe = new Goods({ name: "Purple Nike", oldPrice: "10 100 ₽", salePrice: "2 100 ₽", directory: "images/running_shoes2.png" });
-const nikeBlackShoe = new Goods({ name: "Black Nike", oldPrice: "17 200 ₽", salePrice: "3 400 ₽", directory: "images/running_shoes3.png" });
-representationArray.push(nikeRedShoe, nikeGreenShoe, nikePurpleShoe, nikeBlackShoe);
-const cocktailDress = new Goods({ name: "Коктейльное <br> платье", oldPrice: "₽ 40 000", directory: "images/Rectangle2.png" });
-const pinkDress = new Goods({ name: "Розовое <br> платье", oldPrice: "₽ 12 000", directory: "images/Rectangle3.png" });
-const superDress = new Goods({ name: "Богатое <br> платье", oldPrice: "₽ 65 000", directory: "images/Rectangle4.png" });
-const ballDress = new Goods({ name: "Бальное <br> платье", oldPrice: "₽ 90 000", directory: "images/Rectangle5.png" });
-dressArray.push(cocktailDress, pinkDress, superDress, ballDress);
-const firstTShirt = new Goods({ name: "Футболка", oldPrice: "₽ 1 500", directory: "images/t-shirt.png" });
-tShirtsArray.fill(firstTShirt);
 const mainRepresentation = {
     position: -1,
     firstPosition: 1,
@@ -245,20 +242,16 @@ function carouselResizeFix() {
     else
         resizeBoolean = true;
 }
-let mainTouchStart = mainRepresentation.touchStartFn.bind(mainRepresentation);
-let mainTouchEnd = mainRepresentation.touchEndFn(leftClick, rightClick).bind(mainRepresentation);
-let firstDressSliderEndTouch = mainRepresentation.touchEndFn(() => mainRepresentation.prevFirstSlider(dressArray), () => mainRepresentation.nextFirstSlider(dressArray)).bind(mainRepresentation);
-let secondDressSliderEndTouch = mainRepresentation.touchEndFn(() => mainRepresentation.prevSecondSlider(dressArray), () => mainRepresentation.nextSecondSlider(dressArray)).bind(mainRepresentation);
+const mainTouchStart = mainRepresentation.touchStartFn.bind(mainRepresentation);
+const mainTouchEnd = mainRepresentation.touchEndFn(leftClick, rightClick).bind(mainRepresentation);
+const firstDressSliderEndTouch = mainRepresentation.touchEndFn(() => mainRepresentation.prevFirstSlider(dressArray), () => mainRepresentation.nextFirstSlider(dressArray)).bind(mainRepresentation);
+const secondDressSliderEndTouch = mainRepresentation.touchEndFn(() => mainRepresentation.prevSecondSlider(dressArray), () => mainRepresentation.nextSecondSlider(dressArray)).bind(mainRepresentation);
 representationMajorSheet.addEventListener("touchstart", mainTouchStart);
 representationMajorSheet.addEventListener("touchend", mainTouchEnd);
 firstSwipeArea.addEventListener("touchstart", mainTouchStart);
 firstSwipeArea.addEventListener("touchend", firstDressSliderEndTouch);
 secondSwipeArea.addEventListener("touchstart", mainTouchStart);
 secondSwipeArea.addEventListener("touchend", secondDressSliderEndTouch);
-function nextSlider(container) {
-    const windowWidth = container.firstChild.offsetWidth;
-    container.style.transform += `translate(-${windowWidth}px)`;
-}
 mainRepresentation.sliderGetNamed(representationArray, firstSlider);
 mainRepresentation.next(representationArray, representationOldPrice, representationSalePrice, representationImage);
 mainRepresentation.sliderGetNamed(dressArray, secondSlider);
