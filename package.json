@@ -1,0 +1,19 @@
+{
+  "name": "the_loop",
+  "version": "1.0.0",
+  "description": "go to typescript",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igorSachkov/TheLoop.git"
+  },
+  "author": "Igor Sachkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igorSachkov/TheLoop/issues"
+  },
+  "homepage": "https://github.com/igorSachkov/TheLoop#readme"
+}
